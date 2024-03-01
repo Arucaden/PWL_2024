@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/hello', function () {
-    return 'Hello World';
-});
+// Route::get('/hello', function () {
+//     return 'Hello World';
+// });
 
 
 Route::get('/world', function () {
@@ -46,59 +46,23 @@ Route::get('/user/{name?}', function ($name = null) {
 Route::get('/user/{name?}', function ($name = 'John') {
     return 'Nama Saya: '.$name;
 });
+Route::get('/hello', [WelcomeController::class,'hello']);
 
-// ROUTE NAME
+use App\Http\Controllers\HomeController;
+Route::get('/', [HomeController::class, 'index']);
 
-// Route::get('/user/profile', function () {
-//     //
-// })->name('profile');
+use App\Http\Controllers\AboutController;
+Route::get('/about', [AboutController::class, 'index']);
 
-// Route::get(
-//     '/user/profile',
-//     [UserProfileController::class, 'show']
-// )->name('profile');
+use App\Http\Controllers\ArticlesController;
+Route::get('/articles/{id}', [ArticlesController::class, 'index']);
 
-// // Generating URLs...
-// $url = route('profile');
+use App\Http\Controllers\PhotoController;
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+   ]);
+   Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+   ]);
+   
 
-// // Generating Redirects...
-// return redirect()->route('profile');
-
-// CONTROLLER
-// Route::get('/hello', [WelcomeController::class, 'hello']);
-
-// Route::get('/', [WelcomeController::class, 'selamat']);
-
-// Route::get('/about', [WelcomeController::class, 'about']);
-
-// Route::get('/articles/{id}', [WelcomeController::class, 'article']);
-
-//PRAKTIKUM CONTROLLER BAGIAN G
-
-// use App\Http\Controllers\HomeController;
-// Route::get('/', [HomeController::class, 'index']);
-
-// use App\Http\Controllers\AboutController;
-// Route::get('/about', [AboutController::class, 'index']);
-
-// use App\Http\Controllers\ArticlesController;
-// use App\Http\Controllers\PhotoController;
-
-// Route::get('/articles/{id}', [ArticlesController::class, 'index']);
-
-// Resource Controller
-// use App\Http\Controllers\PhotoController;
-// Route::resource('photos', PhotoController::class);
-
-// Route::resource('photos', PhotoController::class)->only
-// (['index', 'show']);
-// Route::resource('photos', PhotoController::class)->except
-// (['create', 'store', 'update', 'destroy']);
-
-//VIEW
-// Route::get('/greeting', function() {
-//     return view('blog.hello', ['name' => 'Dhanes']);
-// });
-
-// Route::get('/greeting', [WelcomeController::class,
-// 'greeting']);
